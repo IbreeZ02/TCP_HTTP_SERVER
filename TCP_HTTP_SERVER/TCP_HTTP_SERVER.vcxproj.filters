@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\tcp">
+      <UniqueIdentifier>{4e8dbea6-1c5a-4277-a5b7-a8cf2b3602b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{da33c4e1-e1db-45e6-bde4-d40591acd701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\tcp">
+      <UniqueIdentifier>{6fb2920d-981f-4079-bb05-cfb3c5b8ee35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\http">
+      <UniqueIdentifier>{4dadf5eb-6a81-4cd0-b870-7d4502b16db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\app">
+      <UniqueIdentifier>{0169db40-7230-4938-aa6f-62006b0c7dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{675ab278-ca67-487a-a642-fe98eb912d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\app">
+      <UniqueIdentifier>{2f656f8d-cbd2-4b8f-be18-fd8e7b9fdad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="static">
+      <UniqueIdentifier>{87136449-9ba4-4db5-b0af-c90380780dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tcp\http">
+      <UniqueIdentifier>{1d6d98c1-c4d8-41f5-adf0-4d3d68063352}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="server.h">
+      <Filter>Header Files\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="client.h">
+      <Filter>Header Files\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="network.h">
+      <Filter>Header Files\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol.h">
+      <Filter>Header Files\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="message.h">
+      <Filter>Header Files\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="error_handling.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="buffer_handling.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="logging.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="parser.h">
+      <Filter>Header Files\http</Filter>
+    </ClInclude>
+    <ClInclude Include="connection.h">
+      <Filter>Header Files\http</Filter>
+    </ClInclude>
+    <ClInclude Include="upgrade.h">
+      <Filter>Header Files\http</Filter>
+    </ClInclude>
+    <ClInclude Include="mime.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="router.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="file_handler.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="chat_handler.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="httpResponse.h">
+      <Filter>Header Files\http</Filter>
+    </ClInclude>
+    <ClInclude Include="httpRequest.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SSE.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="serializer.h">
+      <Filter>Header Files\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="platform.h">
+      <Filter>Header Files\http</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="server.cpp">
+      <Filter>Source Files\tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol.cpp">
+      <Filter>Source Files\tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="buffer_handling.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="serializer.cpp">
+      <Filter>Header Files\tcp\http</Filter>
+    </ClCompile>
+    <ClCompile Include="upgrade.cpp">
+      <Filter>Header Files\tcp\http</Filter>
+    </ClCompile>
+    <ClCompile Include="router.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="chat_handler.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="connection.cpp">
+      <Filter>Header Files\tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="parser.cpp">
+      <Filter>Header Files\tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="SSE.cpp">
+      <Filter>static</Filter>
+    </ClCompile>
+    <ClCompile Include="network.cpp">
+      <Filter>static</Filter>
+    </ClCompile>
+    <ClCompile Include="file_handler.cpp">
+      <Filter>Header Files\tcp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="index.html">
+      <Filter>static</Filter>
+    </None>
+    <None Include="chat.html">
+      <Filter>static</Filter>
+    </None>
+    <None Include="file.html">
+      <Filter>static</Filter>
+    </None>
+  </ItemGroup>
+</Project>
