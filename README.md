@@ -66,7 +66,7 @@ uploads directory
 
 ![image](TCP_HTTP_SERVER/images/msg.png)
 
-![image](TCP_HTTP_SERVER/images/msg_deviesimages/msg_devices.png.png)
+![image](TCP_HTTP_SERVER/images/msg_devices.png)
 
 ![Untitled design](TCP_HTTP_SERVER/images/upload.png)
 
