@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700&display=swap');
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --border: #222222;
+            --accent: #e8ff00;
+            --text: #f0f0f0;
+            --muted: #666666;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        nav a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        .nav-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text);
+            flex: 1;
+        }
+
+        .status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--muted);
+        }
+
+        .dot.live {
+            background: var(--accent);
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .msg {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 12px 16px;
+            border-left: 2px solid var(--border);
+            color: var(--text);
+            animation: fadein 0.2s ease;
+        }
+
+        .msg.own {
+            border-left-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .msg.system {
+            border-left-color: var(--muted);
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        @keyframes fadein {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .empty {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--muted);
+            text-align: center;
+            margin: auto;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 20px 32px;
+            display: flex;
+            gap: 12px;
+        }
+
+        input {
+            flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            padding: 12px 16px;
+            outline: none;
+            border-radius: 2px;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+        }
+
+        button {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            font-family: 'Syne', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: opacity 0.15s;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/">&#8592; Home</a>
+        <span class="nav-title">Live Chat</span>
+        <span class="status">
+            <span class="dot" id="dot"></span>
+            <span id="status-text">connecting...</span>
+        </span>
+    </nav>
+
+    <div id="messages">
+        <div class="empty" id="empty">No messages yet.</div>
+    </div>
+
+    <footer>
+        <input id="input" type="text" placeholder="Type a message..." autocomplete="off">
+        <button onclick="send()">Send</button>
+    </footer>
+
+    <script>
+        const messages = document.getElementById('messages');
+        const empty    = document.getElementById('empty');
+        const dot      = document.getElementById('dot');
+        const statusEl = document.getElementById('status-text');
+        const input    = document.getElementById('input');
+
+        let pendingMessages = new Set();
+
+        const es = new EventSource('/stream');
+
+        es.onopen = () => {
+            dot.classList.add('live');
+            statusEl.textContent = 'live';
+        };
+
+        es.onmessage = e => {
+            empty.style.display = 'none';
+
+            // skip our own echo by matching exact text
+            if (pendingMessages.has(e.data)) {
+                pendingMessages.delete(e.data);
+                return;
+            }
+
+            const div = document.createElement('div');
+
+            if (e.data.startsWith('system: ')) {
+                div.className = 'msg system';
+                div.textContent = e.data.replace('system: ', '');
+            } else {
+                div.className = 'msg';
+                div.textContent = e.data;
+            }
+
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        };
+
+        es.onerror = () => {
+            dot.classList.remove('live');
+            statusEl.textContent = 'disconnected';
+        };
+
+        function send() {
+            const text = input.value.trim();
+            if (!text) return;
+
+            pendingMessages.add(text);  // remember to skip echo
+
+            const div = document.createElement('div');
+            div.className = 'msg own';
+            div.textContent = text;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+
+            fetch('/send', { method: 'POST', body: text });
+            input.value = '';
+        }
+
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Enter') send();
+        });
+    </script>
+
+</body>
+</html>
