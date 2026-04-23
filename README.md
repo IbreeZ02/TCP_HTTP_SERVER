@@ -6,7 +6,7 @@ A portable, multithreaded HTTP1.1 server build in C++, with no dependencies, man
 
 # ℹ️ Overview
 
-TCP/HTTP1.1 server that acepts browser connections, routes requrests, and serves response all on top of raw sockets. It handles multiple clients simulateounsly using a thread-per-clien model, supports persistent connections, and file upload/download.
+TCP/HTTP 1.1 server that accepts browser connections, routes requests, and serves responses all on top of raw sockets. It handles multiple clients simultaneously using a thread-per-client model and supports persistent connections and file upload/download.
 
 ### architecture & organization:
 
